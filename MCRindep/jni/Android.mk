@@ -6,8 +6,7 @@
 #
 #      http://www.apache.org/licenses/LICENSE-2.0
 #
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
+# Unless require~/OpenCV-2.4.9-android-sdk/sdk/native/jni/OpenCV.mk
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
@@ -16,17 +15,14 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
+OPENCV_INSTALL_MODULES:=on
+
 #For OpenCV
-OPENCV_MK_PATH:=../OpenCV-2.3.1/share/OpenCV/OpenCV.mk
-ifeq ("$(wildcard $(OPENCV_MK_PATH))","")
-	#try to load OpenCV.mk from default install location
-	include $(TOOLCHAIN_PREBUILT_ROOT)/user/share/OpenCV/OpenCV.mk
-else
-	include $(OPENCV_MK_PATH)
-endif
+OPENCV_MK_PATH:=/home/changliu/OpenCV-2.4.9-android-sdk/sdk/native/jni/OpenCV.mk
+include $(OPENCV_MK_PATH)
 
 LOCAL_MODULE    := MCRindep
-LOCAL_SRC_FILES := MCRindep.cpp DisplayMatcher.cpp generic.c heap.c host.c Image.cpp imop.c kdtree.c mathop_sse2.c mathop.c random.c sift.c siftmatcher.cpp 
+LOCAL_SRC_FILES := MCRindep.cpp DisplayMatcher.cpp generic.c heap.c host.c Image.cpp imop.c kdtree.c mathop_sse2.c mathop.c random.c sift.c siftmatcher.cpp
 
 #Enables use of exceptions
 LOCAL_CPPFLAGS += -fexceptions
