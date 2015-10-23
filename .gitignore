@@ -7,3 +7,5 @@ R.java
 *.class
 lint.xml
 *.dex
+MCRindep/obj/local/armeabi-v7a/objs/
+MCRindep/obj/local/armeabi/objs/
