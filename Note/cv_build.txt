@@ -1,0 +1,42 @@
+Native/C++
+=====
+
+To build your own Android application, using OpenCV as native part, the following steps should be taken:
+
+You can use an environment variable to specify the location of OpenCV package or just hardcode absolute or relative path in the jni/Android.mk of your projects.
+
+The file jni/Android.mk should be written for the current application using the common rules for this file.
+
+For detailed information see the Android NDK documentation from the Android NDK archive, in the file <path_where_NDK_is_placed>/docs/ANDROID-MK.html.
+
+The following line:
+
+include C:\Work\OpenCV4Android\OpenCV-2.4.9-android-sdk\sdk\native\jni\OpenCV.mk
+Should be inserted into the jni/Android.mk file after this line:
+
+include $(CLEAR_VARS)
+Several variables can be used to customize OpenCV stuff, but you don’t need to use them when your application uses the async initialization via the OpenCV Manager API.
+
+Note These variables should be set before the "include .../OpenCV.mk" line:
+OPENCV_INSTALL_MODULES:=on
+Copies necessary OpenCV dynamic libs to the project libs folder in order to include them into the APK.
+
+OPENCV_CAMERA_MODULES:=off
+Skip native OpenCV camera related libs copying to the project libs folder.
+
+OPENCV_LIB_TYPE:=STATIC
+Perform static linking with OpenCV. By default dynamic link is used and the project JNI lib depends on libopencv_java.so.
+
+The file Application.mk should exist and should contain lines:
+
+APP_STL := gnustl_static
+APP_CPPFLAGS := -frtti -fexceptions
+Also, the line like this one:
+
+APP_ABI := armeabi-v7a
+Should specify the application target platforms.
+
+In some cases a linkage error (like "In function 'cv::toUtf16(std::basic_string<...>... undefined reference to 'mbstowcs'") happens when building an application JNI library, depending on OpenCV. The following line in the Application.mk usually fixes it:
+
+APP_PLATFORM := android-9
+Either use manual ndk-build invocation or setup Eclipse CDT Builder to build native JNI lib before (re)building the Java part and creating an APK.
